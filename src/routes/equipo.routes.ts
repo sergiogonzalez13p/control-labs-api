@@ -1,14 +1,11 @@
 import { Router } from 'express';
-import loanRoutes from './loan.routes';
-import usuarioRoutes from './usuario.routes';
-import salaRoutes from './sala.routes';
-import equipoRoutes from './equipo.routes';
+import { EquipoController } from '../controllers/equipo.controller';
+import { validateEquipoPayload } from '../middlewares/validateEquipo.middleware';
 
 const router = Router();
 
-router.use('/loans', loanRoutes);
-router.use('/usuarios', usuarioRoutes);
-router.use('/salas', salaRoutes);
-router.use('/equipos', equipoRoutes);
+router.post('/', validateEquipoPayload, EquipoController.registrarEquipo);
+router.get('/', EquipoController.listarEquipos);
+router.patch('/:id', EquipoController.actualizarEquipoParcial);
 
 export default router;
